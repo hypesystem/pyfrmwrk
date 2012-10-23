@@ -41,6 +41,10 @@ Contains HTML snippets with PFW Variables (To Be Defined).
 
 Contains common PyFrmWrk utilities.
 
+### res
+
+Resources folder for front-end accessible resources (stylesheets and scripts).
+
 ### settings
 
 Contains all kinds of settings for the framework.
