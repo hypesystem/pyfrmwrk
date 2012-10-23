@@ -1,2 +1,2 @@
-from hypehtmlpage import HtmlPage, set_default_design
+from hypehtmlpage import HtmlPage
 from hypehtmldesign import HtmlDesign

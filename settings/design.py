@@ -1,8 +1,8 @@
 # Holds constants for the design
 
 title_constant = " | PyFrmWrk"
-stylesheets = ["http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700,400italic,700italic","/res/stdstyle.css"]
-scripts = []
+stylesheets = ("http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700,400italic,700italic","/res/stdstyle.css")
+scripts = None
 
 # NOTICE: htmlwrap uses the following constants
 #  <%PFW_BODY%>: This is replaced with the varying text in body

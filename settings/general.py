@@ -1,2 +1,2 @@
 # General settings
-default_module = "home"
+default_module = "example" #Module shown by default

@@ -8,7 +8,7 @@ class HtmlDesign:
         self.stylesheets = stylesheets
         self.scripts = scripts
         self.head = head
-		self.title_constant = title_constant
+        self.title_constant = title_constant
     def statichtml():
         return statichtml
     def stylesheets():
