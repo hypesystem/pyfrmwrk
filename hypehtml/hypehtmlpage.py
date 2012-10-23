@@ -1,3 +1,5 @@
+import hypehtmldesign
+
 default_design = None
 
 def set_default_design(design):
@@ -12,17 +14,26 @@ class HtmlPage:
 			  head: HTML to be included inside the head tag
 			  title: content of title tag in head, title displayed in browser window
 			  charset: string representation of charset of page, used in the charset meta-tag
-			  stylesheets: an array of CSS stylesheets to be included
-			  scripts: an array of JavaScript scripts to be included
+			  stylesheets: a tuple of CSS stylesheets to be included
+			  scripts: a tuple of JavaScript scripts to be included
 	    """
         self.body = body
         self.title = title
         self.charset = charset
-# TODO: Verify these as arrays
+		
+        if type(stylesheets) is not tuple and stylesheets is not None:
+		    raise ValueError("The stylesheets argument must be a tuple or have no value")
         self.stylesheets = stylesheets
+		
+		if type(scripts) is not tuple and scripts is not None:
+		    raise ValueError("The scripts argument must be a tuple or have no value")
         self.scripts = scripts
+		
         self.head = head
-# TODO: Verify is actually design
+
+		if type(design) is not HtmlDesign and design is not None:
+		    raise ValueError("The design argument must be a hypehtml.HtmlDesign or have no value")
+		
         self.design = design
     def generate(self):
         """ Generates and returns the HTML for this page. """
