@@ -65,5 +65,6 @@ class HtmlPage:
 	@staticmethod
 	def clean_resource_path(resource_path):
 	    """ Cleans the path of the resource, preferring minified versions if possible """
+		# TODO:if relative path (not full)
 		# TODO: Check if .min.<ext> version exists, prefer this
 		# TODO: Check if path is correct, force /res=<file> if /res/<file> or <file>, otherwise raise exception

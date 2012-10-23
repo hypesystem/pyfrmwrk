@@ -9,6 +9,10 @@ def die(message = ''):
     print message
     sys.exit()
 
+# Standard design
+design = hypehtml.HtmlDesign(title_constant = settings.design.title_constant, static_html = settings.design.htmlwrap, stylesheets = settings.design.stylesheets, scripts = settings.design.scripts)
+hypehtml.set_default_design(design)
+
 # TODO: Get module from GET, if not set, set as default:
 modulename = settings.general.default_module
 args = cgi.FieldStorage()

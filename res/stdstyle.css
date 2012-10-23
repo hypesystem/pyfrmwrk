@@ -1,0 +1,38 @@
+html {
+	background: white;
+	text-align: center;
+}
+body {
+	background: #efefef;
+	font-family: 'Source Sans Pro';
+	margin: 0;
+	width: 800px;
+	text-align: left;
+	display: inline-block;
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+	padding: 15px;
+	border-bottom: 25px solid #999;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 200;
+	margin-bottom: 0;
+}
+p {
+	margin-top: 0;
+}
+a {
+	color: #207cca;
+}
+#topbar {
+	border-bottom: 1px solid #999;
+	margin-bottom: 10px;
+}
+#topbar h3 {
+	display: inline-block;
+	margin: 0;
+	margin-right: 10px;
+}
+#topbar .author {
+	float: right;
+}
