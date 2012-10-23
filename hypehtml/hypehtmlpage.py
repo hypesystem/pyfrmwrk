@@ -17,30 +17,48 @@ class HtmlPage:
 			  stylesheets: a tuple of CSS stylesheets to be included
 			  scripts: a tuple of JavaScript scripts to be included
 	    """
-        self.body = body
+		# Verify types, then set values
+        if type(body) is not string:
+		    raise ValueError("The body argument must be a string")
+		self.body = body
+		if type(title) is not string:
+		    raise ValueError("The title argument must be a string")
         self.title = title
+		if type(charset) is not string:
+		    raise ValueError("The charset argument must be a string")
         self.charset = charset
-		
         if type(stylesheets) is not tuple and stylesheets is not None:
 		    raise ValueError("The stylesheets argument must be a tuple or have no value")
         self.stylesheets = stylesheets
-		
 		if type(scripts) is not tuple and scripts is not None:
 		    raise ValueError("The scripts argument must be a tuple or have no value")
         self.scripts = scripts
-		
+		if type(head) is not string:
+		    raise ValueError("The head argument must be a string")
         self.head = head
-
 		if type(design) is not HtmlDesign and design is not None:
-		    raise ValueError("The design argument must be a hypehtml.HtmlDesign or have no value")
-		
+		    raise ValueError("The design argument must be a hypehtml.HtmlDesign or have no value; Note: This may have been set wrongly through default design")
         self.design = design
     def generate(self):
         """ Generates and returns the HTML for this page. """
+		#TODO: Actually use design
+		#body
+		body_html = ''
+		body_lines = self.body.split('\n')
+		for line in body_lines:
+		    body_html += ' ' + line.strip()
+		#stylesheets
         stylesheets_html = ''
         if(self.stylesheets != None):
             for stl in self.stylesheets:
                 stylesheets_html += '<link rel="stylesheet" type="text/css" href="%s">' % stl
+		#scripts
+		scripts_html = ''
+		if(self.scripts != None):
+		    for sct in self.scripts:
+			    scripts_html += '<script type="text/javascript" src="%s"></script>' % sct
+		head_html = '<title>%s</title><meta charset="%s">%s%s' % (self.title, self.charset, stylesheets_html, scripts_html)
         
-        result = "Content-Type: text/html;\n\n<!DOCTYPE html><html><head><title>%s</title><meta charset=\"%s\">%s%s</head><body>%s</body></html>" % (self.title, self.charset, stylesheets_html, self.head, self.body)
-        return result
+        full_html = "Content-Type: text/html;\n\n<!DOCTYPE html><html><head>%s</head><body>%s</body></html>" % (head_html, body_html)
+        return full_html
+	#TODO: generate_as_stream(): For big pages, this lets you start sending data to the server while it is being generated, no need to save anything
