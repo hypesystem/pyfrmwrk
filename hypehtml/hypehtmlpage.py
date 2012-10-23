@@ -62,3 +62,8 @@ class HtmlPage:
         full_html = "Content-Type: text/html;\n\n<!DOCTYPE html><html><head>%s</head><body>%s</body></html>" % (head_html, body_html)
         return full_html
 	#TODO: generate_as_stream(): For big pages, this lets you start sending data to the server while it is being generated, no need to save anything
+	@staticmethod
+	def clean_resource_path(resource_path):
+	    """ Cleans the path of the resource, preferring minified versions if possible """
+		# TODO: Check if .min.<ext> version exists, prefer this
+		# TODO: Check if path is correct, force /res=<file> if /res/<file> or <file>, otherwise raise exception
