@@ -1,6 +1,6 @@
 """ This module is a simple home page, including a snippet file and returning it to the controller to print """
 
-snippetfile = open('res/snippet.home.htm','r')
+snippetfile = open('pfwhtml/snippet.home.htm','r')
 snippetcontent = snippetfile.read()
 
 def title():
