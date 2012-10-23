@@ -38,28 +38,36 @@ class HtmlPage:
         self.head = head
 		if type(design) is not HtmlDesign and design is not None:
 		    raise ValueError("The design argument must be a hypehtml.HtmlDesign or have no value; Note: This may have been set wrongly through default design")
+	    elif design is not None:
+		    self.title = self.title + design.title_constant
+			self.stylesheets = self.stylesheets + design.stylesheets
+			self.scrips = self.scripts + design.scripts
         self.design = design
     def generate(self):
         """ Generates and returns the HTML for this page. """
-		#TODO: Actually use design
 		#body
-		body_html = ''
-		body_lines = self.body.split('\n')
-		for line in body_lines:
-		    body_html += ' ' + line.strip()
+		clean_body = self.clean_html(self.body)
+		if design is not None:
+			clean_design_body = self.clean_html(self.design.static_html)
+			clean_body = design_body_html.replace("<%PFW_BODY%>",clean_body,1)
 		#stylesheets
         stylesheets_html = ''
         if(self.stylesheets != None):
             for stl in self.stylesheets:
-                stylesheets_html += '<link rel="stylesheet" type="text/css" href="%s">' % stl
+                stylesheets_html += '<link rel="stylesheet" type="text/css" href="%s">' % self.clean_resource_path(stl)
 		#scripts
 		scripts_html = ''
 		if(self.scripts != None):
 		    for sct in self.scripts:
-			    scripts_html += '<script type="text/javascript" src="%s"></script>' % sct
-		head_html = '<title>%s</title><meta charset="%s">%s%s' % (self.title, self.charset, stylesheets_html, scripts_html)
-        
-        full_html = "Content-Type: text/html;\n\n<!DOCTYPE html><html><head>%s</head><body>%s</body></html>" % (head_html, body_html)
+			    scripts_html += '<script type="text/javascript" src="%s"></script>' % self.clean_resource_path(sct)
+		#custom head
+		clean_head = self.clean_html(self.head)
+	    if design is not None:
+		    clean_design_head = self.clean_html(self.design.static_html)
+			clean_head = clean_design_head + clean_head
+		#finalize
+		head_html = '<title>%s</title><meta charset="%s">%s%s%s' % (self.title, self.charset, stylesheets_html, scripts_html, clean_head)
+        full_html = "Content-Type: text/html;\n\n<!DOCTYPE html><html><head>%s</head><body>%s</body></html>" % (head_html, clean_body)
         return full_html
 	#TODO: generate_as_stream(): For big pages, this lets you start sending data to the server while it is being generated, no need to save anything
 	@staticmethod
@@ -68,3 +76,12 @@ class HtmlPage:
 		# TODO:if relative path (not full)
 		# TODO: Check if .min.<ext> version exists, prefer this
 		# TODO: Check if path is correct, force /res=<file> if /res/<file> or <file>, otherwise raise exception
+		return resource_path
+	@staticmethod
+	def clean_html(html):
+	    """ Cleans the given HTML, making it as small as possible """
+		result = ''
+		html_lines = html.split('\n')
+		for line in html_lines:
+		    result += ' ' + line.strip()
+		return result
