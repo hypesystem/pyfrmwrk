@@ -27,13 +27,54 @@ except ImportError:
     page = hypehtml.HtmlPage(error.e404.error_html())
     die(page.generate())
 
+page_arguments = dict()
 # Try to get all page information from module
+# Body [REQUIRED!]
 try:
-    body = module.body()
+    body = module.body
+    page_arguments.update(dict(body = body))
 except AttributeError:
     page = hypehtml.HtmlPage(error.eModuleFault.error_html("Module has no body() function, which should return the html body of the page to be displayed"))
     die(page.generate())
+# Title
+try:
+    title = module.title
+    page_arguments.update(dict(title = title))
+except AttributeError:
+    1
+    # Ignore this
+# Charset
+try:
+    charset = module.charset
+    page_arguments.update(dict(charset = charset))
+except AttributeError:
+    1
+    # Ignore this
+try:
+    stylesheets = module.stylesheets
+    page_arguments.update(dict(stylesheets = stylesheets))
+except AttributeError:
+    1
+    # Ignore this
+try:
+    scripts = module.scripts
+    page_arguments.update(dict(scripts = scripts))
+except AttributeError:
+    1
+    # Ignore this
+try:
+    head = module.head
+    page_arguments.update(dict(head = head))
+except AttributeError:
+    1
+    # Ignore this
+try:
+    design = module.design
+    page_arguments.update(dict(design = design))
+except AttributeError:
+    1
+    # Ignore this
 
-page = hypehtml.HtmlPage(body, title=module.title())
+page = hypehtml.HtmlPage(**page_arguments)
 
 print page.generate()
