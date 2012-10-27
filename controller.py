@@ -16,8 +16,8 @@ hypehtml.HtmlPage.set_default_design(design)
 # Get module from GET, if not set, set as default:
 modulename = settings.general.default_module
 args = cgi.FieldStorage()
-if(len(args) > 0):
-    if("show" in args):
+if len(args) > 0:
+    if "show" in args:
         modulename = args["show"].value
 
 try:

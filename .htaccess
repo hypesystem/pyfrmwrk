@@ -1,8 +1,7 @@
 RewriteEngine On
 
+RewriteRule ^res=(.+)$ /res/$1
 RewriteRule ^([a-z][a-z0-9]*)$ /?show=$1
-RewriteRule ^([a-z][a-z0-9]*)\?([aA-zZ0-9&]+)$ /?show=argprinter&arg2=hello
-RewriteRule ^res=([aA-zZ\.0-9]+)$ /res/$1
-RewriteRule ^HuBba$ /?show=argprinter&argument2=hello&argument3=no
+RewriteRule ^([a-z][a-z0-9]*)\/([^.]*)$ /?show=$1&args=$2
 
 DirectoryIndex index.py

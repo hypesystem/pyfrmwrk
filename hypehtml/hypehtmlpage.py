@@ -1,5 +1,5 @@
 from .hypehtmldesign import HtmlDesign
-
+import os
 
 class HtmlPage:
     """ A valid HTML5 page with Content-Type header """
@@ -58,12 +58,12 @@ class HtmlPage:
             clean_body = clean_design_body.replace("<%PFW_BODY%>",clean_body,1)
         #stylesheets
         stylesheets_html = ''
-        if(self.stylesheets != None):
+        if self.stylesheets is not None:
             for stl in self.stylesheets:
                 stylesheets_html += '<link rel="stylesheet" type="text/css" href="%s">' % self.clean_resource_path(stl)
         #scripts
         scripts_html = ''
-        if(self.scripts != None):
+        if self.scripts is not None:
             for sct in self.scripts:
                 scripts_html += '<script type="text/javascript" src="%s"></script>' % self.clean_resource_path(sct)
         #custom head
@@ -79,9 +79,23 @@ class HtmlPage:
     @staticmethod
     def clean_resource_path(resource_path):
         """ Cleans the path of the resource, preferring minified versions if possible """
-        # TODO:if relative path (not full)
-        # TODO: Check if .min.<ext> version exists, prefer this
-        # TODO: Check if path is correct, force /res=<file> if /res/<file> or <file>, otherwise raise exception
+        # Fit rewrite format (res=(.*))
+        is_relative_path = False
+        if resource_path[0:4] == "res/":
+            resource_path = "/res=" + resource_path[4:]
+            is_relative_path = True
+        elif resource_path[0:5] == "/res/":
+            resource_path = "/res=" + resource_path[5:]
+            is_relative_path = True
+        elif resource_path[0] == "/":
+            resource_path = "/res=" + resource_path[1:]
+            is_relative_path = True
+        # Check if .min.<ext> version exists, prefer this
+        if is_relative_path:
+            resource_ext_isolated = resource_path.rpartition(".")
+            minified_path = resource_ext_isolated[0] + ".min." + resource_ext_isolated[1]
+            if(os.path.exists("./res/" + minified_path[5:])):
+                resource_path = minified_path
         return resource_path
     @staticmethod
     def clean_html(html):
