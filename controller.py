@@ -6,7 +6,7 @@ import error
 
 def die(message = ''):
     """ Kills the page from further process with one final message printed """
-    print message
+    print(message)
     sys.exit()
 
 # Standard design
@@ -77,4 +77,4 @@ except AttributeError:
 
 page = hypehtml.HtmlPage(**page_arguments)
 
-print page.generate()
+print(page.generate())

@@ -1,4 +1,4 @@
-from hypehtmldesign import HtmlDesign
+from .hypehtmldesign import HtmlDesign
 
 
 class HtmlPage:

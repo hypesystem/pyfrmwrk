@@ -1,2 +1,2 @@
-from hypehtmlpage import HtmlPage
-from hypehtmldesign import HtmlDesign
+from .hypehtmlpage import HtmlPage
+from .hypehtmldesign import HtmlDesign

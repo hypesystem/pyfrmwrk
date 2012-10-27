@@ -1,3 +1,3 @@
-import system
-import design
-import general
+import settings.system
+import settings.design
+import settings.general
