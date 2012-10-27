@@ -93,7 +93,7 @@ class HtmlPage:
         # Check if .min.<ext> version exists, prefer this
         if is_relative_path:
             resource_ext_isolated = resource_path.rpartition(".")
-            minified_path = resource_ext_isolated[0] + ".min." + resource_ext_isolated[1]
+            minified_path = resource_ext_isolated[0] + ".min." + resource_ext_isolated[2]
             if(os.path.exists("./res/" + minified_path[5:])):
                 resource_path = minified_path
         return resource_path
