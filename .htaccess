@@ -5,3 +5,6 @@ RewriteRule ^([a-z][a-z0-9]*)$ /?show=$1
 RewriteRule ^([a-z][a-z0-9]*)\/([^.]*)$ /?show=$1&args=$2
 
 DirectoryIndex index.py
+
+ErrorDocument 404 /error/404
+ErrorDocument 500 /error/500
